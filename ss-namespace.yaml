@@ -3,5 +3,5 @@ kind: Namespace
 metadata:
   annotations:
     openshift.io/description: "Sealed Secrets Operator project for encrypting secrets"
-    openshift.io/display-name: "sealed-secrets"
+    openshift.io/display-name: "Sealed Secrets"
   name: sealed-secrets

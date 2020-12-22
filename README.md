@@ -16,7 +16,7 @@ oc describe packagemanifests/sealed-secrets-operator-helm -n openshift-marketpla
 ```
 
 ### Create a namespace
-
+[ss-namespace.yaml](ss-namespace.yaml)
 ```yaml
 apiVersion: v1
 kind: Namespace
@@ -25,6 +25,9 @@ metadata:
     openshift.io/description: "Sealed Secrets Operator project for encrypting secrets"
     openshift.io/display-name: "sealed-secrets"
   name: sealed-secrets
+```
+```shell script
+oc apply -f ss-namespace.yaml
 ```
 or 
 ```shell script
@@ -37,7 +40,7 @@ As per the documentation ["`A user wanting a specific operator creates a Subscri
 
 So we will create a subscription
 
-**[subscription.yaml](subscription.yaml).**
+**[ss-sub.yaml](ss-sub.yaml).**
 
 ```yaml
 apiVersion: operators.coreos.com/v1alpha1
@@ -51,7 +54,6 @@ spec:
   name: sealed-secrets-operator-helm
   source: community-operators
   sourceNamespace: openshift-marketplace
-  startingCSV: sealed-secrets-operator-helm.v0.0.2 
 ```
 
 -   the starting CSV version we want, it should match the current CSV
@@ -62,7 +64,7 @@ It is possible to configure how OLM deploys an Operator via the config field in 
 
 An OperatorGroup is an OLM resource that provides multitenant configuration to OLM-installed Operators. An OperatorGroup selects target namespaces in which to generate required RBAC access for its member Operators.
 
-**[operatorgroup.yaml](operatorgroup.yaml).**
+**[ss-og.yaml](ss-og.yaml).**
 
 ```yaml
 apiVersion: operators.coreos.com/v1
@@ -84,7 +86,7 @@ spec:
 
 ### Deploy the Operator
 ```shell script
-oc apply -f namespace.yaml
-oc apply -f operatorgroup.yaml
-oc apply -f subscription.yaml
+oc apply -f ss-namespace.yaml
+oc apply -f ss-og.yaml
+oc apply -f ss-sub.yaml
 ```
