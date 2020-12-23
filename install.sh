@@ -13,3 +13,7 @@ echo " "
 echo "Creating Sealed Secrets Subscription"
 oc apply -f ss-sub.yaml
 echo "Sealed Secrets Subscription created!"
+echo " "
+echo "Creating Sealed Secrets Controller"
+oc apply -f ss-cr.yaml
+echo "Sealed Secrets Controller created!"
