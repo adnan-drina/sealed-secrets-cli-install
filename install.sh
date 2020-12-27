@@ -12,10 +12,11 @@ echo "Sealed Secrets OperatorGroup created!"
 echo " "
 echo "Creating Sealed Secrets Subscription"
 oc apply -f ss-sub.yaml
-exho "wait for sub"
+echo "wait for sub"
 SS_SUB="$(oc get subs -o name -n sealed-secrets | grep sealed-secrets-operator)"
 oc -n sealed-secrets wait --timeout=120s --for=condition=CatalogSourcesUnhealthy=False ${SS_SUB}
-exho "wait for operator"
+echo "wait for operator"
+sleep 60
 SS_OPER="$(oc get pods -o name -n sealed-secrets | grep sealed-secrets-operator-)"
 oc -n sealed-secrets wait --timeout=120s --for=condition=Ready ${SS_OPER}
 echo "Sealed Secrets Subscription created!"
